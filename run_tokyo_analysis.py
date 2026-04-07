@@ -40,8 +40,9 @@ REGIONAL_CANDIDATES = [
     "Viet Nam",
 ]
 
-DEFAULT_INPUT_DIR = Path(r"C:\Users\pecu6\OneDrive\桌面\Temp Doc\master\tokyo_data")
-DEFAULT_OUTPUT_DIR = Path(__file__).resolve().parent / "output"
+BASE_DIR = Path(__file__).resolve().parent
+DEFAULT_INPUT_DIR = BASE_DIR
+DEFAULT_OUTPUT_DIR = BASE_DIR / "output"
 
 
 def parse_args() -> argparse.Namespace:
@@ -393,6 +394,7 @@ def plot_coefficients(model_terms: pd.DataFrame, figures_dir: Path) -> None:
 
 def write_summary(
     output_dir: Path,
+    input_dir: Path,
     sample: pd.DataFrame,
     country_coverage: pd.DataFrame,
     sample_countries: list[str],
@@ -412,7 +414,7 @@ def write_summary(
 
 ## Analysis design
 
-- Input folder: `{DEFAULT_INPUT_DIR}`
+- Input folder: `{input_dir}`
 - Sample window: `{years}`
 - Regional screen: East and Southeast Asian economies with at least 6 country-year observations containing GDP per worker, education expenditure, internet use, and labor force participation.
 - Final sample: `{sample['Country Name'].nunique()}` countries and `{len(sample)}` complete country-year observations.
@@ -468,7 +470,7 @@ def main() -> None:
     plot_diagnostic_scatter(sample, figures_dir)
     plot_country_means(sample, figures_dir)
     plot_coefficients(model_terms, figures_dir)
-    write_summary(args.output_dir, sample, country_coverage, sample_countries, model_terms)
+    write_summary(args.output_dir, args.input_dir, sample, country_coverage, sample_countries, model_terms)
 
     print(f"Saved analysis outputs to: {args.output_dir}")
     print(f"Sample countries: {', '.join(sample_countries)}")

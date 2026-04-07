@@ -2,8 +2,8 @@
 import re, numpy as np, pandas as pd, seaborn as sns, matplotlib.pyplot as plt
 import statsmodels.formula.api as smf
 
-ROOT = Path(__file__).resolve().parent.parent
-OUT = Path(__file__).resolve().parent / 'output'
+ROOT = Path(__file__).resolve().parent
+OUT = ROOT / 'output'
 FIG = OUT / 'figures'
 TAB = OUT / 'tables'
 for p in [FIG, TAB]: p.mkdir(parents=True, exist_ok=True)
